@@ -1,6 +1,10 @@
 {
   "name": "react-edit-table",
   "version": "1.0.0",
+  "scripts": {
+    "build": "coffee -o lib -c src"
+  },
+  "main": "lib/table",
   "dependencies": {
     "lodash": "^3.10.1",
     "react": "^0.14.3",
