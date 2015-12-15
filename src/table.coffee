@@ -12,7 +12,9 @@ class Table extends Component
       TBody {
         columns: @props.columns
         data: @props.data
+        newRow: @props.newRow
         onChange: @props.onChange
+        onNew: @props.onNew
       }
 
 

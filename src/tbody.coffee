@@ -1,5 +1,6 @@
 {DOM, Component, createFactory} = require 'react'
 {tbody} = DOM
+NewRow = createFactory require './new_row'
 Row = createFactory require './row'
 _ = require 'lodash'
 
@@ -17,6 +18,12 @@ class TBody extends Component
 
   render: ->
     tbody {},
+      if @props.newRow
+        NewRow {
+          columns: @props.columns
+          onNew: @props.onNew
+        }
+
       for rowData, rowIndex in @props.data
         Row {
           onChange: @getOnChangeCallbackForRow(rowIndex)
