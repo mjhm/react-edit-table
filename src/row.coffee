@@ -1,9 +1,13 @@
 {DOM, Component, createFactory} = require 'react'
-{tr} = DOM
+{button, td, tr} = DOM
 Cell = createFactory require './cell'
 
 
 class Row extends Component
+
+  getActionCallback: (action, row) -> ->
+    action.onClick? {row}
+
 
   getOnChangeCallbackForCell: (columnName) -> (newValue) =>
     @props.onChange columnName, newValue
@@ -19,6 +23,14 @@ class Row extends Component
           onChange: @getOnChangeCallbackForCell(key)
           value: @props.data[key]
         }
+
+      # Actions cell
+      td {},
+        for action, actionIndex in @props.actions ? []
+          button {
+            key: actionIndex
+            onClick: @getActionCallback(action, @props.data)
+          }, action.text
 
 
 module.exports = Row

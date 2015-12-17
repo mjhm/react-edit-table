@@ -10,5 +10,8 @@ class THead extends Component
         for column in @props.columns
           th key: column.key, column.text
 
+        # Actions cell header
+        th {}, 'Actions'
+
 
 module.exports = THead

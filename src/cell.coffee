@@ -9,10 +9,14 @@ class Cell extends Component
     super
     @state =
       editing: no
-      editable: @props.column.editable ? yes
+      editable: @props.column.editable
 
 
-  onBlur: =>
+  discardChanges: =>
+    @setState editing: no
+
+
+  saveChanges: =>
     @setState editing: no
     @props.onChange @state.editingValue
 
@@ -32,10 +36,12 @@ class Cell extends Component
   render: ->
     if @state.editing
       EditingCell {
-        @onBlur
         @onChange
         column: @props.column
         focusOnCreate: yes
+        onBlur: @saveChanges
+        onDiscard: @discardChanges
+        onSubmit: @saveChanges
         value: @state.editingValue
       }
 
@@ -43,7 +49,6 @@ class Cell extends Component
 
       td {
         @onDoubleClick
-        style: whiteSpace: 'nowrap'
       }, "#{@props.value}"
 
 

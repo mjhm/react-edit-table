@@ -1,5 +1,5 @@
 {Component, DOM, createFactory} = require 'react'
-{button, tr, td} = DOM
+{form, button, tr, td} = DOM
 EditingCell = createFactory require './editing_cell'
 _ = require 'lodash'
 
@@ -10,10 +10,7 @@ class NewRow extends Component
     super
     @state = values: {}
     for column in @props.columns
-      if column.values
-        @state.values[column.key] = column.values[0]
-      else
-        @state.values[column.key] = ''
+      @state.values[column.key] = column.getInitialValue()
 
 
   getOnChangeCallbackForCell: (cellKey) -> (newValue) =>
@@ -28,17 +25,20 @@ class NewRow extends Component
     tr {},
       for column in @props.columns
         {key} = column
-        if column.editable ? yes
+        if column.editableOnCreate
           EditingCell {
             column
             key
             focusOnCreate: no
             onChange: @getOnChangeCallbackForCell(key)
+            onSubmit: @onSave
             value: @state.values[key]
           }
         else
-          td {key},
-            button onClick: @onSave, 'Create'
+          td {key}
+
+      td {},
+        button onClick: @onSave, 'Save'
 
 
 module.exports = NewRow

@@ -26,10 +26,11 @@ class TBody extends Component
 
       for rowData, rowIndex in @props.data
         Row {
-          onChange: @getOnChangeCallbackForRow(rowIndex)
+          actions: @props.actions
           columns: @props.columns
           data: rowData
           key: rowIndex
+          onChange: @getOnChangeCallbackForRow(rowIndex)
         }
 
 

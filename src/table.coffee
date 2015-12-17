@@ -1,6 +1,7 @@
 {DOM, Component, createFactory} = require 'react'
-THead = createFactory require './thead'
+Column = require './column'
 TBody = createFactory require './TBody'
+THead = createFactory require './thead'
 {table} = DOM
 
 
@@ -10,7 +11,8 @@ class Table extends Component
     table {},
       THead columns: @props.columns
       TBody {
-        columns: @props.columns
+        actions: @props.actions
+        columns: @props.columns.map (column) -> new Column column
         data: @props.data
         newRow: @props.newRow
         onChange: @props.onChange

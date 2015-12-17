@@ -1,20 +1,16 @@
 {Component, DOM} = require 'react'
 {findDOMNode} = require 'react-dom'
-{td, input, select, option} = DOM
+{form, input, option, select, td} = DOM
+_ = require 'lodash'
 
 
 class EditingCell extends Component
-
-  constructor: ->
-    super
-    @isSelect = @props.column.values?
-
 
   componentDidMount: ->
     return unless @props.focusOnCreate
     inputElement = findDOMNode @refs.editInput
     inputElement.focus()
-    inputElement.select() unless @isSelect
+    inputElement.select() unless @props.column.isSelect()
 
 
   onBlur: =>
@@ -23,8 +19,19 @@ class EditingCell extends Component
 
   onChange: (e) =>
     {value} = e.target
-    value = @selectIndexToValue(value) if @isSelect
+    value = @selectIndexToValue(value) if @props.column.isSelect()
+    value = @props.column.mapValue(value)
     @props.onChange? value
+
+
+  onKeyDown: (e) =>
+    if e.key is 'Escape'
+      @props.onDiscard?()
+
+
+  onSubmit: (e) =>
+    e.preventDefault()
+    @props.onSubmit?()
 
 
   selectIndexToValue: (index) ->
@@ -38,22 +45,29 @@ class EditingCell extends Component
 
 
   render: ->
-    if @isSelect
-      td {},
-        select {value: @selectValueToIndex(@props.value), ref: 'editInput', @onBlur, @onChange},
-          for optionName, index in @props.column.values
-            option value: index, key: index, "#{optionName}"
+    td {},
+      form {@onSubmit},
+        if @props.column.isSelect()
+          select {
+            @onBlur
+            @onChange
+            @onKeyDown
+            ref: 'editInput'
+            value: @selectValueToIndex(@props.value)
+          },
+            for optionName, index in @props.column.values
+              option value: index, key: index, "#{optionName}"
 
-    else
+        else
 
-      td {},
-        input {
-          @onBlur
-          @onChange
-          ref: 'editInput'
-          value: @props.value
-          style: width: '100%'
-        }
+          input {
+            @onBlur
+            @onChange
+            @onKeyDown
+            ref: 'editInput'
+            value: @props.value
+            style: width: '100%'
+          }
 
 
 module.exports = EditingCell
