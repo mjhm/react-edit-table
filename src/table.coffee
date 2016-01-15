@@ -1,6 +1,6 @@
 {DOM, Component, createFactory} = require 'react'
 Column = require './column'
-TBody = createFactory require './TBody'
+TBody = createFactory require './tbody'
 THead = createFactory require './thead'
 {table} = DOM
 
