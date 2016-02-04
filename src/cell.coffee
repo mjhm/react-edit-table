@@ -49,7 +49,8 @@ class Cell extends Component
 
       td {
         @onDoubleClick
-      }, "#{@props.value}"
+        className: @props.column.className
+      }, @props.column.cellComponent "#{@props.value}"
 
 
 module.exports = Cell

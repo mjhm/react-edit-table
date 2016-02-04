@@ -49,6 +49,7 @@ class EditingCell extends Component
       form {@onSubmit},
         if @props.column.isSelect()
           select {
+            className: @props.column.className
             @onBlur
             @onChange
             @onKeyDown
@@ -64,6 +65,7 @@ class EditingCell extends Component
             @onBlur
             @onChange
             @onKeyDown
+            className: @props.column.className
             ref: 'editInput'
             value: @props.value
             style: width: '100%'
