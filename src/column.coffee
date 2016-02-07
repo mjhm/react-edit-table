@@ -5,8 +5,10 @@ class Column
       @editable
       @editableOnCreate
       @key
+      @className
       @mapValue
       @text
+      @cellComponent
       @values
     } = options
 
@@ -15,6 +17,8 @@ class Column
     @editableOnCreate ?= @editable
     @mapValue ?= (v) -> v # (NO OP)
     @text ?= @key
+    @className ?= "column-#{@key}"
+    @cellComponent ?= (val) -> val
 
     # Validate
     unless @key? then throw 'Column requires key'

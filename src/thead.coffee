@@ -8,7 +8,10 @@ class THead extends Component
     thead {},
       tr {},
         for column in @props.columns
-          th key: column.key, column.text
+          th {
+            key: column.key
+            className: column.className ? "column-#{column.key}"
+          }, column.text
 
         # Actions cell header
         th {}, 'Actions'
