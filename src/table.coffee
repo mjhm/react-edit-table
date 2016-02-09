@@ -32,7 +32,7 @@ class Table extends Component
       compareResult ? 0
 
     table {},
-      THead { columns: @state.columns, @changeSort }
+      THead { columns: @state.columns, columnSortOrder: @state.columnOrder, @changeSort }
       TBody {
         actions: @props.actions
         columns: @state.columns

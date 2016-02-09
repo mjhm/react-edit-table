@@ -12,8 +12,13 @@ class THead extends Component
     thead {},
       tr {},
         for column in @props.columns
-          className = classNames(column.className ? "column-#{column.key}",
-            if column.sortCompare then (if column.iaDescending then 'sort-down' else 'sort-up') else null
+          className = classNames(
+            column.className ? "column-#{column.key}",
+            {
+              'sort-down':    column.sortCompare and column.isDescending
+              'sort-up':      column.sortCompare and not column.isDescending
+              'sort-primary': column.sortCompare and column is @props.columnSortOrder[0]
+            }
           )
           sortArrow = if column.sortCompare
             if column.isDescending
