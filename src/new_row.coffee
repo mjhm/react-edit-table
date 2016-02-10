@@ -35,7 +35,7 @@ class NewRow extends Component
             value: @state.values[key]
           }
         else
-          td {key}
+          td className: column.className
 
       td {},
         button onClick: @onSave, 'Save'

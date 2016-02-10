@@ -21,8 +21,10 @@ class Cell extends Component
     @props.onChange @state.editingValue
 
 
-  onDoubleClick: =>
+  editHandler: (event) =>
     return unless @state.editable
+    event.stopPropagation()
+    event.preventDefault()
     @setState
       editing: yes
       editingValue: @props.value
@@ -37,6 +39,7 @@ class Cell extends Component
     if @state.editing
       EditingCell {
         @onChange
+        className: @props.column.className
         column: @props.column
         focusOnCreate: yes
         onBlur: @saveChanges
@@ -47,9 +50,9 @@ class Cell extends Component
 
     else
       td {
-        @onDoubleClick
+        onDoubleClick: @editHandler
         className: @props.column.className
-      }, @props.column.cellComponent {value: "#{@props.value}"}
+      }, @props.column.cellComponent {value: "#{@props.value}", @editHandler}
 
 
 module.exports = Cell
