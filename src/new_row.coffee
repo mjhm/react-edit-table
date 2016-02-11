@@ -22,7 +22,7 @@ class NewRow extends Component
 
 
   render: ->
-    tr {},
+    tr key: @props.key ? 'new_row',
       for column in @props.columns
         {key} = column
         if column.editableOnCreate

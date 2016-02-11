@@ -38,6 +38,7 @@ class Table extends Component
         columns: @state.columns
         data: data
         newRow: @props.newRow
+        newRowKey: @props.newRowKey
         onChange: @props.onChange
         onNew: @props.onNew
       }
