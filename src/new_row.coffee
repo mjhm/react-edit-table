@@ -22,7 +22,7 @@ class NewRow extends Component
 
 
   render: ->
-    tr {},
+    tr key: @props.key ? 'new_row',
       for column in @props.columns
         {key} = column
         if column.editableOnCreate
@@ -35,7 +35,7 @@ class NewRow extends Component
             value: @state.values[key]
           }
         else
-          td {key}
+          td className: column.className
 
       td {},
         button onClick: @onSave, 'Save'

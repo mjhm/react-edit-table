@@ -22,6 +22,7 @@ class TBody extends Component
         NewRow {
           columns: @props.columns
           onNew: @props.onNew
+          key: @props.newRowKey
         }
 
       for rowData, rowIndex in @props.data

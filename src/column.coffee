@@ -10,6 +10,9 @@ class Column
       @text
       @cellComponent
       @values
+      @sortCompare
+      @sortRank
+      @isDescending
     } = options
 
     # Set defaults
@@ -18,7 +21,7 @@ class Column
     @mapValue ?= (v) -> v # (NO OP)
     @text ?= @key
     @className ?= "column-#{@key}"
-    @cellComponent ?= (val) -> val
+    @cellComponent ?= ({value}) -> value
 
     # Validate
     unless @key? then throw 'Column requires key'

@@ -45,7 +45,7 @@ class EditingCell extends Component
 
 
   render: ->
-    td {},
+    td className: @props.column.className,
       form {@onSubmit},
         if @props.column.isSelect()
           select {
@@ -68,7 +68,6 @@ class EditingCell extends Component
             className: @props.column.className
             ref: 'editInput'
             value: @props.value
-            style: width: '100%'
           }
 
 
